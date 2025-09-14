@@ -1,16 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
 
-const supabaseUrl = 'https://yixjkiiwdbdaypxoupfm.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlpeGpraWl3ZGJkYXlweG91cGZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4MTMyMTMsImV4cCI6MjA3MDM4OTIxM30.Ijeqgaqy8mWT_gcDBHul9Rgr5RVzze3Hk9MDWakiUS8';
+const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
+const supabaseAnonKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
 
 export const isApiAvailable = !!(supabaseUrl && supabaseAnonKey);
 
 if (!isApiAvailable) {
   throw new Error(`
       *******************************************************************************************
-      ERROR: Supabase credentials are not set correctly.
-      Please check the values in 'services/supabaseClient.ts'.
+      ERROR: Supabase credentials are not set.
+      Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment variables or Replit Secrets.
       *******************************************************************************************
     `);
 }
