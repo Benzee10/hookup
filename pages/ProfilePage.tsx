@@ -1,23 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import { useData } from '../hooks/useData';
-import { useAuth } from '../hooks/useAuth';
-import { useNotification } from '../hooks/useNotification';
 import { Profile } from '../types';
-
-const LockedContact: React.FC<{ cost: number; onUnlock: () => void; }> = ({ cost, onUnlock }) => (
-  <div className="bg-slate-100 p-6 rounded-lg text-center border-2 border-dashed border-slate-300">
-    <div className="flex justify-center items-center mb-4">
-        <div className="font-mono text-xl tracking-widest bg-slate-200 text-slate-500 rounded px-4 py-2 blur-sm select-none">
-            **********
-        </div>
-    </div>
-    <p className="text-slate-600 mb-4">Unlock premium contact information to connect directly.</p>
-    <button onClick={onUnlock} className="bg-brand-secondary hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition-transform hover:scale-105">
-      Unlock for {cost} Credits
-    </button>
-  </div>
-);
 
 const WhatsAppIcon = () => (
     <svg viewBox="0 0 24 24" className="w-6 h-6 mr-2" fill="currentColor">
@@ -25,132 +10,101 @@ const WhatsAppIcon = () => (
     </svg>
 );
 
-const UnlockedContact: React.FC<{ contact: string }> = ({ contact }) => {
-    const isWhatsApp = contact.toLowerCase().startsWith('whatsapp:');
-    let whatsAppNumber = '';
-    if (isWhatsApp) {
-        whatsAppNumber = contact.split(':')[1].replace(/[^0-9+]/g, '');
-    }
-
-    return (
-        <div className="bg-green-50 p-6 rounded-lg text-center border-2 border-green-200">
-            <p className="text-sm font-semibold text-green-700 mb-2">Contact Unlocked!</p>
-            {isWhatsApp ? (
-                <a
-                    href={`https://wa.me/${whatsAppNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center text-2xl font-bold text-green-800 hover:text-green-900"
-                >
-                    <WhatsAppIcon />
-                    <span>{contact.split(':')[1].trim()}</span>
-                </a>
-            ) : (
-                <p className="text-2xl font-bold text-green-800">{contact}</p>
-            )}
-            <p className="text-xs text-slate-500 mt-2">Please be respectful when reaching out.</p>
-        </div>
-    );
-};
-
-const InsufficientCreditsModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 animate-fade-in">
-        <div className="bg-white rounded-lg p-8 shadow-2xl max-w-sm w-full text-center">
-            <h3 className="text-2xl font-bold text-red-600 mb-4">Insufficient Credits</h3>
-            <p className="text-slate-600 mb-6">You don't have enough credits to unlock this profile.</p>
-            <div className="flex justify-center gap-4">
-                <Link to="/buy-credits" className="bg-brand-primary text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700">Buy Credits</Link>
-                <button onClick={onClose} className="bg-slate-200 text-slate-700 font-semibold py-2 px-6 rounded-lg hover:bg-slate-300">Close</button>
-            </div>
-        </div>
-    </div>
-);
-
 const ProfilePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { user, refreshUser } = useAuth();
-  const { showNotification } = useNotification();
-  const { profiles, hasUnlocked, unlockProfile: dataUnlockProfile } = useData();
+  const { profiles } = useData();
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [showInsufficientCreditsModal, setShowInsufficientCreditsModal] = useState(false);
+  const isLocked = true; // Always locked on this page, funnel to VIP
 
   useEffect(() => {
     const foundProfile = profiles.find(p => p.id === id);
     if (foundProfile) {
       setProfile(foundProfile);
-    } else {
-        // handle case where profile not found, maybe redirect
     }
   }, [id, profiles]);
 
-  const handleUnlock = useCallback(async () => {
-    if (!user) {
-      navigate('/login', { state: { from: location } });
-      return;
-    }
-    if (!profile) return;
-
-    if (user.credits >= profile.unlockCost) {
-      try {
-        await dataUnlockProfile(profile.id);
-        await refreshUser(); // Refresh user to get updated credits
-        showNotification("Profile unlocked successfully!", "success");
-      } catch (error) {
-        console.error("Failed to unlock:", error);
-        showNotification((error as Error).message, "error");
-      }
-    } else {
-      setShowInsufficientCreditsModal(true);
-    }
-  }, [user, profile, dataUnlockProfile, refreshUser, navigate, location, showNotification]);
-
   if (!profile) {
-    return <div className="text-center p-10">Loading profile...</div>;
+    return <div className="text-center p-10 font-sans text-slate-500">Loading profile...</div>;
   }
   
-  const isUnlocked = user ? hasUnlocked(profile.id) : false;
-
   return (
-    <div className="max-w-6xl mx-auto animate-fade-in">
-      {showInsufficientCreditsModal && <InsufficientCreditsModal onClose={() => setShowInsufficientCreditsModal(false)} />}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="md:flex">
-          <div className="md:w-1/2">
-            <img className="h-64 w-full object-cover md:h-full" src={profile.gallery[0]} alt={profile.name} />
-          </div>
-          <div className="p-8 md:w-1/2 flex flex-col justify-between">
-            <div>
-                <div className="uppercase tracking-wide text-sm text-brand-primary font-semibold">{profile.location}</div>
-                <h1 className="block mt-1 text-4xl leading-tight font-extrabold text-black">{profile.name}</h1>
-                <p className="mt-2 text-slate-500">Age: {profile.age}</p>
-                <div className="flex flex-wrap gap-2 my-4">
-                    {profile.categories.map(cat => (
-                        <span key={cat} className="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">{cat}</span>
-                    ))}
-                </div>
-                <p className="mt-4 text-slate-600">{profile.description}</p>
-            </div>
-            <div className="mt-8">
-                {isUnlocked ? (
-                    <UnlockedContact contact={profile.premiumContact} />
-                ) : (
-                    <LockedContact cost={profile.unlockCost} onUnlock={handleUnlock} />
-                )}
-            </div>
+    <div className="max-w-3xl mx-auto animate-fade-in px-6 py-12 md:py-20">
+      <Link to="/" className="inline-flex items-center text-premium-muted hover:text-premium-ink mb-12 transition-colors text-xs uppercase tracking-widest font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Discover
+      </Link>
+
+      <div className="bg-white/80 backdrop-blur-md rounded-[40px] border border-premium-ink/5 overflow-hidden p-10 md:p-20 shadow-2xl shadow-premium-ink/5">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-light text-premium-ink mb-4 tracking-tighter leading-none">
+            {profile.name}, <span className="italic font-serif text-premium-accent">{profile.age}</span>
+          </h1>
+          <p className="text-premium-muted text-xs uppercase tracking-[0.3em] font-medium">{profile.location}</p>
+          <div className="flex justify-center flex-wrap gap-3 mt-8">
+            {profile.interests.map(interest => (
+              <span key={interest} className="text-premium-muted text-[10px] px-4 py-1.5 rounded-full border border-premium-ink/10 uppercase tracking-widest">
+                {interest}
+              </span>
+            ))}
           </div>
         </div>
-      </div>
-      <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Gallery</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {profile.gallery.map((img, index) => (
-                  <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                      <img src={img} alt={`${profile.name} gallery image ${index + 1}`} className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
-                  </div>
-              ))}
+
+        <div className="grid grid-cols-1 gap-16 mb-20">
+          <div className="space-y-8 bg-white/40 p-10 rounded-[40px] border border-premium-ink/5 shadow-inner">
+            <h3 className="text-[10px] font-bold text-premium-muted uppercase tracking-[0.3em] border-b border-premium-ink/5 pb-4">Profile Story</h3>
+            <div className="prose prose-slate max-w-none text-premium-ink/90 leading-relaxed font-serif text-lg">
+              <ReactMarkdown>{profile.bio}</ReactMarkdown>
+            </div>
           </div>
+          <div className="space-y-4 bg-premium-ink/5 p-8 rounded-[32px]">
+            <h3 className="text-[10px] font-bold text-premium-muted uppercase tracking-[0.2em]">Looking For</h3>
+            <p className="text-premium-ink/80 leading-relaxed text-sm font-light italic">"{profile.lookingFor}"</p>
+          </div>
+        </div>
+
+        {isLocked ? (
+          <div className="bg-premium-bg rounded-[32px] p-10 text-center border border-premium-ink/5">
+            <h3 className="text-2xl font-light text-premium-ink mb-3 tracking-tight">Contact Locked</h3>
+            <p className="text-premium-muted text-sm mb-12 max-w-md mx-auto font-light leading-relaxed">
+              To maintain the exclusivity of our community, direct contact information is reserved for verified members.
+            </p>
+            
+            <div className="flex justify-center">
+              <Link 
+                to="/vip"
+                className="group relative bg-premium-ink hover:bg-premium-accent p-8 rounded-[24px] transition-all text-left text-white hover:shadow-xl hover:shadow-premium-accent/20 w-full max-w-md"
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest">Premium</span>
+                  <span className="text-[9px] bg-white/10 text-white px-3 py-1 rounded-full uppercase font-bold">Instant Access</span>
+                </div>
+                <h4 className="text-xl font-light mb-2">Join VIP</h4>
+                <p className="text-xs text-white/60 leading-relaxed font-light">Skip all verifications and get lifetime access to all profiles.</p>
+              </Link>
+            </div>
+            
+            <p className="text-[9px] text-premium-muted mt-10 uppercase tracking-[0.3em] font-bold">Premium Secure Connection</p>
+          </div>
+        ) : (
+          <div className="bg-emerald-50/50 rounded-[32px] p-12 text-center border border-emerald-100 animate-fade-in">
+            <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-600">
+              <WhatsAppIcon />
+            </div>
+            <h3 className="text-2xl font-light text-emerald-900 mb-2 tracking-tight">Access Granted</h3>
+            <p className="text-emerald-700/70 text-sm mb-10 font-light">You can now initiate a direct conversation with {profile.name}.</p>
+            <a 
+              href={`https://wa.me/${profile.whatsapp.replace(/[^0-9]/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-5 px-10 rounded-full transition-all w-full uppercase tracking-widest shadow-2xl shadow-emerald-200"
+            >
+              <WhatsAppIcon />
+              Message on WhatsApp
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

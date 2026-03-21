@@ -10,138 +10,39 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      credit_transactions: {
-        Row: {
-          amount: number
-          created_at: string
-          description: string | null
-          id: string
-          type: "purchase" | "unlock" | "admin_grant"
-          user_id: string
-        }
-        Insert: {
-          amount: number
-          created_at?: string
-          description?: string | null
-          id?: string
-          type: "purchase" | "unlock" | "admin_grant"
-          user_id: string
-        }
-        Update: {
-          amount?: number
-          created_at?: string
-          description?: string | null
-          id?: string
-          type?: "purchase" | "unlock" | "admin_grant"
-          user_id?: string
-        }
-        Relationships: []
-      }
-      payments: {
-        Row: {
-          created_at: string
-          id: string
-          proof_url: string
-          status: "pending" | "approved" | "rejected"
-          transaction_id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          proof_url: string
-          status?: "pending" | "approved" | "rejected"
-          transaction_id: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          proof_url?: string
-          status?: "pending" | "approved" | "rejected"
-          transaction_id?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           age: number
-          categories: string[]
+          interests: string[]
           created_at: string
-          description: string
-          gallery: string[]
+          bio: string
+          looking_for: string
           id: string
           location: string
           name: string
-          premium_contact: string
-          unlock_cost: number
+          whatsapp: string
         }
         Insert: {
           age: number
-          categories?: string[]
+          interests?: string[]
           created_at?: string
-          description: string
-          gallery?: string[]
+          bio: string
+          looking_for: string
           id?: string
           location: string
           name: string
-          premium_contact: string
-          unlock_cost?: number
+          whatsapp: string
         }
         Update: {
           age?: number
-          categories?: string[]
+          interests?: string[]
           created_at?: string
-          description?: string
-          gallery?: string[]
+          bio?: string
+          looking_for?: string
           id?: string
           location?: string
           name?: string
-          premium_contact?: string
-          unlock_cost?: number
-        }
-        Relationships: []
-      }
-      unlocks: {
-        Row: {
-          created_at: string
-          profile_id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          profile_id: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          profile_id?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      users: {
-        Row: {
-          credits: number
-          email: string
-          id: string
-          name: string
-          role: "user" | "admin"
-        }
-        Insert: {
-          credits?: number
-          email: string
-          id: string
-          name: string
-          role?: "user" | "admin"
-        }
-        Update: {
-          credits?: number
-          email?: string
-          id?: string
-          name?: string
-          role?: "user" | "admin"
+          whatsapp?: string
         }
         Relationships: []
       }
@@ -150,31 +51,7 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-        approve_payment: {
-            Args: {
-              payment_id_to_approve: string
-              credits_to_award: number
-            }
-            Returns: undefined
-        }
-        grant_credits: {
-            Args: {
-              target_user_id: string
-              amount_to_grant: number
-              admin_description: string
-            }
-            Returns: undefined
-        }
-        is_admin: {
-            Args: Record<PropertyKey, never>
-            Returns: boolean
-        }
-        unlock_profile: {
-            Args: {
-              profile_id_to_unlock: string
-            }
-            Returns: undefined
-        }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never

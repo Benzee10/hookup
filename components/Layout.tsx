@@ -1,20 +1,20 @@
 
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { ReactNode } from 'react';
 import Header from './Header';
 import Notification from './Notification';
 
-const Layout: React.FC = () => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-slate-50 text-brand-dark">
+    <div className="min-h-screen bg-premium-bg text-premium-ink font-sans selection:bg-premium-accent/10 selection:text-premium-accent">
       <Header />
       <Notification />
-      <main className="container mx-auto p-4 md:p-8">
-        <Outlet />
+      <main className="py-8">
+        {children}
       </main>
-      <footer className="text-center p-4 text-slate-500 text-sm">
-        © 2024 CrediMarket. All rights reserved.
-      </footer>
     </div>
   );
 };

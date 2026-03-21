@@ -4,34 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CrediMarket - Service Provider Marketplace</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Premium Connect - Exclusive Dating Profiles</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              'brand-primary': '#4f46e5',
-              'brand-secondary': '#10b981',
-              'brand-light': '#f0f9ff',
-              'brand-dark': '#1e293b',
+              'premium-bg': '#fdfcfb',
+              'premium-ink': '#1a1a1a',
+              'premium-accent': '#e11d48',
+              'premium-muted': '#71717a',
             },
             animation: {
-              'fade-in': 'fadeIn 0.5s ease-in-out',
-              'toast-in': 'slideIn 0.5s ease-in-out',
-              'toast-out': 'fadeOut 0.5s ease-in-out forwards',
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'slide-up': 'slideUp 0.6s ease-out',
             },
             keyframes: {
               fadeIn: {
                 '0%': { opacity: '0' },
                 '100%': { opacity: '1' },
               },
-              fadeOut: {
-                '0%': { opacity: '1' },
-                '100%': { opacity: '0' },
-              },
-              slideIn: {
-                '0%': { transform: 'translateY(-20px)', opacity: '0' },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
                 '100%': { transform: 'translateY(0)', opacity: '1' },
               }
             }
@@ -54,9 +49,28 @@
   html {
     scroll-behavior: smooth;
   }
+  .prose ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: rgba(26, 26, 26, 0.8);
+  }
+  .prose li {
+    margin-bottom: 0.75rem;
+  }
+  .prose p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+  .prose strong {
+    color: #e11d48;
+    font-weight: 600;
+  }
 </style>
+<link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-brand-light">
+  <body class="bg-premium-bg text-premium-ink">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

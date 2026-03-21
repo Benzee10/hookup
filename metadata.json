@@ -1,6 +1,5 @@
 {
-  "name": "CrediMarket - Service Provider Marketplace",
-  "description": "A credit-based marketplace where users can discover and unlock contact information for various service providers. Features include user accounts, credit management, profile browsing, and an admin dashboard.",
-  "requestFramePermissions": [],
-  "prompt": ""
+  "name": "Dating Profile Connect",
+  "description": "Premium dating profile generator with exclusive access to direct contact information.",
+  "requestFramePermissions": []
 }
