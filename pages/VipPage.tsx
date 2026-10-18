@@ -2,7 +2,13 @@ import React from 'react';
 
 const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
 const whatsappLink = 'https://selar.com/118311';
+const adminShortLink = 'https://lovelydates.short.gy/rdgHt1';
 const adminLink = 'https://wa.me/message/55MRTO2IBU5YA1';
+
+// Opens the original admin link in another tab while the short link opens normally.
+const handleContactAdmin = () => {
+  window.open(adminLink, '_blank', 'noopener,noreferrer');
+};
 
 const JoinButton: React.FC = () => (
   <a
@@ -133,7 +139,7 @@ const VipPage: React.FC = () => (
         </div>
         <p className="mt-6 text-sm text-zinc-400">
           Questions about membership?{' '}
-          <a href={adminLink} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-4 hover:text-red-400">Contact the admin</a>
+          <a href={adminShortLink} target="_blank" rel="noopener noreferrer" onClick={handleContactAdmin} className="text-white underline underline-offset-4 hover:text-red-400">Contact the admin</a>
         </p>
       </section>
     </main>
