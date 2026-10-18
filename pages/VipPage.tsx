@@ -1,8 +1,8 @@
 import React from 'react';
 
 const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
-const whatsappLink = 'https://wa.me/message/55MRTO2IBU5YA1';
-const adminLink = 'https://t.me/Dr_swit';
+const whatsappLink = 'https://selar.com/118311';
+const adminLink = 'https://wa.me/message/55MRTO2IBU5YA1';
 
 const JoinButton: React.FC = () => (
   <a
@@ -128,7 +128,7 @@ const VipPage: React.FC = () => (
             rel="noopener noreferrer"
             className="inline-block w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-5 px-8 rounded-xl text-sm uppercase tracking-widest transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
-            Contact me on WhatsApp for VIP
+            WhatsApp for VIP
           </a>
         </div>
         <p className="mt-6 text-sm text-zinc-400">
