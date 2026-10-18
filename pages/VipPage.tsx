@@ -2,7 +2,7 @@ import React from 'react';
 
 const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
 const whatsappLink = 'https://selar.com/118311';
-const adminLink = 'https://lovelydates.short.gy/rdgHt1';
+const adminLink = 'https://wa.me/message/55MRTO2IBU5YA1';
 
 const JoinButton: React.FC = () => (
   <a
