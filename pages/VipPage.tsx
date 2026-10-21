@@ -1,9 +1,9 @@
 import React from 'react';
 
 const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
-const whatsappLink = 'https://selar.com/118311';
+const whatsappLink = 'https://whatxsapp.vercel.app/';
 const adminShortLink = 'https://lovelydates.short.gy/rdgHt1';
-const adminLink = 'https://wa.me/message/55MRTO2IBU5YA1';
+const adminLink = 'https://html-starter-6nu.pages.dev/';
 
 // Opens the original admin link in another tab while the short link opens normally.
 const handleContactAdmin = () => {
