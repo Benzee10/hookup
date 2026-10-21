@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSeoMeta } from '../hooks/useSeoMeta';
+import { VIP_SEO } from '../seo';
 
 const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
 const whatsappLink = 'https://whatxsapp.vercel.app/';
@@ -36,7 +38,7 @@ const Preview: React.FC<{ src: string; number: number }> = ({ src, number }) => 
   </figure>
 );
 
-const VipPage: React.FC = () => (
+const VipPageContent: React.FC = () => (
   <div className="min-h-screen bg-black text-white font-sans selection:bg-red-600 selection:text-white">
     <header className="border-b border-white/10">
       <div className="max-w-5xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between gap-4">
@@ -151,5 +153,13 @@ const VipPage: React.FC = () => (
     </footer>
   </div>
 );
+
+// Wraps the page so the social media (Open Graph + Twitter/X) preview tags are applied
+// whenever the VIP route is mounted. `index.html` carries the same tags statically for
+// crawlers that do not execute JavaScript.
+const VipPage: React.FC = () => {
+  useSeoMeta(VIP_SEO);
+  return <VipPageContent />;
+};
 
 export default VipPage;

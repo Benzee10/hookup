@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        // Dev server only: accept requests from any Host header so hosted previews / tunnels work.
+        allowedHosts: true,
       },
       plugins: [react()],
       define: {
