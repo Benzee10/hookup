@@ -3,7 +3,7 @@ import { useSeoMeta } from '../hooks/useSeoMeta';
 import { VIP_SEO } from '../seo';
 
 const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
-const whatsappLink = 'https://whatxsapp.vercel.app/';
+const whatsappLink = 'https://whatsapphat.pages.dev/';
 const adminShortLink = 'https://lovelydates.short.gy/rdgHt1';
 const adminLink = 'https://html-starter-6nu.pages.dev/';
 
