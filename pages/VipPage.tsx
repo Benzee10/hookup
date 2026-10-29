@@ -54,7 +54,7 @@ const VipContentCard: React.FC<{ card: VipCard }> = ({ card }) => (
     <div className="relative bg-black">
       <img
         src={card.image}
-        alt={`${card.title} — exclusive VIP preview, adults only`}
+        alt={`${card.title} — Premium Connect VIP preview`}
         className="mx-auto block h-auto w-full max-h-[75vh] object-contain"
         loading="lazy"
         referrerPolicy="no-referrer"
@@ -88,7 +88,7 @@ const vipCards: VipCard[] = [
     href: telegramLink,
     image: 'https://imagex1.sx.cdn.live/images/pinporn/2022/03/19/26898223.gif?width=460',
     action: 'Join',
-    badge: '18+',
+    badge: 'VIP',
   },
   {
     id: 'whatsapp',
@@ -97,26 +97,26 @@ const vipCards: VipCard[] = [
     href: whatsappLink,
     image: 'https://imagex1.sx.cdn.live/images/pinporn/2022/01/30/26640740.gif?width=460',
     action: 'Join',
-    badge: '18+',
+    badge: 'VIP',
   },
   {
     id: 'mzansi',
-    title: 'Mzansi Leaked Videos',
+    title: 'Mzansi Videos',
     blurb: 'Browse the full Mzansi collection — new clips added as they land.',
     href: videosLink,
     image:
       'https://porngif.co/wp-content/uploads/2023/08/149168-big-donk-cakey-likes-to-shake-that-enormous-soft-rump-no-ass-shots-all-natural.gif',
     action: 'Watch',
-    badge: '18+',
+    badge: 'VIP',
   },
   {
     id: 'student',
-    title: 'Student Leaked Videos',
-    blurb: 'Stream the student leak library anytime, straight from the vault.',
+    title: 'Student Videos',
+    blurb: 'Stream the student collection anytime, straight from the vault.',
     href: videosLink,
     image: 'https://myteenwebcam.com/fapp/gifs/8618e56516c85f4d39bcb967244a07b7.gif',
     action: 'Watch',
-    badge: '18+',
+    badge: 'VIP',
   },
 ];
 
@@ -136,7 +136,7 @@ const VipPageContent: React.FC = () => (
     <header className="border-b border-white/10">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-5">
         <span className="text-xs font-bold uppercase tracking-[0.3em] text-white">Premium Connect / VIP</span>
-        <span className="text-xs uppercase tracking-[0.2em] text-zinc-500">Adults only · 18+</span>
+        <span className="text-xs uppercase tracking-[0.2em] text-zinc-500">Members only · Private community</span>
       </div>
     </header>
 
@@ -152,7 +152,7 @@ const VipPageContent: React.FC = () => (
             <span className="text-[#ff3b5c]">One place.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-            Pick a room below — private Telegram channel, the WhatsApp group, or the leaked video vaults.
+            Pick a room below — the Telegram channel, the WhatsApp group, or one of the video collections.
             Every card opens in a new tab.
           </p>
         </div>
@@ -239,8 +239,8 @@ const VipPageContent: React.FC = () => (
 
     <footer className="border-t border-white/10 px-6 py-8 text-center">
       <p className="mx-auto max-w-2xl text-xs leading-relaxed text-zinc-500">
-        Adults only (18+). This page contains adult previews. Review membership details and any payment terms with the
-        admin before joining. Respect the privacy of creators and members; do not redistribute private content.
+        All links open external destinations in a new tab. Membership details and any payment terms are handled by the
+        admin. Please respect the privacy of every member and keep shared content inside the community.
       </p>
     </footer>
   </div>
