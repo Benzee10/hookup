@@ -49,16 +49,16 @@ type VipCard = {
 /** A single content card: image on top, bold title below, action button at the bottom. */
 const VipContentCard: React.FC<{ card: VipCard }> = ({ card }) => (
   <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a1a] shadow-xl shadow-black/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#ff3b5c]/40 hover:shadow-[0_20px_45px_-15px_rgba(255,59,92,0.45)]">
-    <div className="relative aspect-[16/10] overflow-hidden bg-black">
+    {/* No fixed aspect ratio and no cropping: every GIF renders at its full width and
+        full length. Very tall GIFs are capped at 75vh and letterboxed instead of cut. */}
+    <div className="relative bg-black">
       <img
         src={card.image}
         alt={`${card.title} — exclusive VIP preview, adults only`}
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+        className="mx-auto block h-auto w-full max-h-[75vh] object-contain"
         loading="lazy"
         referrerPolicy="no-referrer"
       />
-      {/* Fades the bottom of the image into the card body. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
       <span className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur">
         {card.badge}
       </span>
