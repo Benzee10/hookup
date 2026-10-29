@@ -2,153 +2,245 @@ import React from 'react';
 import { useSeoMeta } from '../hooks/useSeoMeta';
 import { VIP_SEO } from '../seo';
 
-const telegramLink = 'https://t.me/+HFPeZDgHGmVmMjk0';
-const whatsappLink = 'https://whatsapphat.pages.dev/';
+/* ------------------------------------------------------------------ *
+ * Links
+ * ------------------------------------------------------------------ */
+
+const telegramLink = 'https://t.me/beaifuloul';
+const whatsappLink = 'https://vip-redirect.vercel.app';
+const videosLink = 'https://html-starter-6nu.pages.dev/';
 const adminShortLink = 'https://lovelydates.short.gy/rdgHt1';
-const adminLink = 'https://html-starter-6nu.pages.dev/';
 
-// Opens the original admin link in another tab while the short link opens normally.
-const handleContactAdmin = () => {
-  window.open(adminLink, '_blank', 'noopener,noreferrer');
-};
+/* ------------------------------------------------------------------ *
+ * Small building blocks
+ * ------------------------------------------------------------------ */
 
-const JoinButton: React.FC = () => (
+/** Solid play triangle used inside every call-to-action button. */
+const PlayIcon: React.FC<{ className?: string }> = ({ className = 'h-4 w-4' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+    <path d="M8 5.14v13.72a1 1 0 0 0 1.54.84l10.29-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14Z" />
+  </svg>
+);
+
+/** The high-contrast pink/red action button (icon + label, full width of the card). */
+const ActionButton: React.FC<{ href: string; label: string; action: string }> = ({ href, label, action }) => (
   <a
-    href={telegramLink}
+    href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-block w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-5 px-8 rounded-xl text-sm uppercase tracking-widest transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+    aria-label={`${action} — ${label}`}
+    className="mt-auto inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#ff3b5c] px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-[#ff3b5c]/20 transition-all duration-200 hover:bg-[#ff5c78] hover:shadow-[#ff3b5c]/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff3b5c]"
   >
-    Join the VIP Telegram →
+    <PlayIcon />
+    <span>{action}</span>
   </a>
 );
 
-const Preview: React.FC<{ src: string; number: number }> = ({ src, number }) => (
-  <figure className="max-w-lg mx-auto overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
-    <img
-      src={src}
-      alt={`Exclusive VIP content preview ${number} — adults only`}
-      className="w-full h-auto"
-      loading="lazy"
-      referrerPolicy="no-referrer"
-    />
-    <figcaption className="px-5 py-3 text-xs text-zinc-400 tracking-wide">
-      A preview of the VIP experience · 18+ only
-    </figcaption>
-  </figure>
+type VipCard = {
+  id: string;
+  title: string;
+  blurb: string;
+  href: string;
+  image: string;
+  action: string;
+  badge: string;
+};
+
+/** A single content card: image on top, bold title below, action button at the bottom. */
+const VipContentCard: React.FC<{ card: VipCard }> = ({ card }) => (
+  <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a1a] shadow-xl shadow-black/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#ff3b5c]/40 hover:shadow-[0_20px_45px_-15px_rgba(255,59,92,0.45)]">
+    <div className="relative aspect-[16/10] overflow-hidden bg-black">
+      <img
+        src={card.image}
+        alt={`${card.title} — exclusive VIP preview, adults only`}
+        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+        loading="lazy"
+        referrerPolicy="no-referrer"
+      />
+      {/* Fades the bottom of the image into the card body. */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
+      <span className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur">
+        {card.badge}
+      </span>
+    </div>
+
+    <div className="flex flex-1 flex-col p-5 sm:p-6">
+      <h3 className="text-xl font-extrabold leading-tight tracking-tight text-white sm:text-2xl">
+        {card.title}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-zinc-400">{card.blurb}</p>
+      <div className="mt-6">
+        <ActionButton href={card.href} label={card.title} action={card.action} />
+      </div>
+    </div>
+  </article>
 );
 
+/* ------------------------------------------------------------------ *
+ * Content
+ * ------------------------------------------------------------------ */
+
+const vipCards: VipCard[] = [
+  {
+    id: 'telegram',
+    title: 'Telegram',
+    blurb: 'Join the private channel for daily drops and direct access to the community.',
+    href: telegramLink,
+    image: 'https://imagex1.sx.cdn.live/images/pinporn/2022/03/19/26898223.gif?width=460',
+    action: 'Join',
+    badge: '18+',
+  },
+  {
+    id: 'whatsapp',
+    title: 'WhatsApp Group',
+    blurb: 'Step into the group chat where members swap links, tips and fresh content.',
+    href: whatsappLink,
+    image: 'https://imagex1.sx.cdn.live/images/pinporn/2022/01/30/26640740.gif?width=460',
+    action: 'Join',
+    badge: '18+',
+  },
+  {
+    id: 'mzansi',
+    title: 'Mzansi Leaked Videos',
+    blurb: 'Browse the full Mzansi collection — new clips added as they land.',
+    href: videosLink,
+    image:
+      'https://porngif.co/wp-content/uploads/2023/08/149168-big-donk-cakey-likes-to-shake-that-enormous-soft-rump-no-ass-shots-all-natural.gif',
+    action: 'Watch',
+    badge: '18+',
+  },
+  {
+    id: 'student',
+    title: 'Student Leaked Videos',
+    blurb: 'Stream the student leak library anytime, straight from the vault.',
+    href: videosLink,
+    image: 'https://myteenwebcam.com/fapp/gifs/8618e56516c85f4d39bcb967244a07b7.gif',
+    action: 'Watch',
+    badge: '18+',
+  },
+];
+
+const steps: Array<[string, string]> = [
+  ['Pick your room', 'Choose Telegram, the WhatsApp group or one of the video vaults above.'],
+  ['Tap the button', 'Every card opens its destination in a new tab — no detours.'],
+  ['Stay in the loop', 'Turn on notifications so you never miss a fresh drop.'],
+];
+
+/* ------------------------------------------------------------------ *
+ * Page
+ * ------------------------------------------------------------------ */
+
 const VipPageContent: React.FC = () => (
-  <div className="min-h-screen bg-black text-white font-sans selection:bg-red-600 selection:text-white">
+  <div className="min-h-screen bg-[#0a0a0a] font-sans text-white selection:bg-[#ff3b5c] selection:text-white">
+    {/* Top bar */}
     <header className="border-b border-white/10">
-      <div className="max-w-5xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between gap-4">
-        <span className="text-xs font-bold uppercase tracking-[0.3em]">Premium Connect / VIP</span>
-        <span className="text-xs text-zinc-400">Adults only · 18+</span>
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-5">
+        <span className="text-xs font-bold uppercase tracking-[0.3em] text-white">Premium Connect / VIP</span>
+        <span className="text-xs uppercase tracking-[0.2em] text-zinc-500">Adults only · 18+</span>
       </div>
     </header>
 
     <main>
-      <section className="px-6 pt-20 pb-16 text-center">
-        <div className="max-w-4xl mx-auto">
-          <p className="inline-block bg-red-600/15 text-red-400 border border-red-600/30 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-widest mb-8">
-            Your invitation to the exclusive side
+      {/* Hero */}
+      <section className="px-6 pb-12 pt-16 text-center sm:pt-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="mb-6 inline-block rounded-full border border-[#ff3b5c]/30 bg-[#ff3b5c]/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#ff6b83]">
+            The VIP directory
           </p>
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight leading-tight mb-6">
-            More than a preview.<br />
-            <span className="text-red-500">Get the VIP experience.</span>
+          <h1 className="text-4xl font-black uppercase leading-[1.05] tracking-tight sm:text-6xl">
+            Everything VIP.<br />
+            <span className="text-[#ff3b5c]">One place.</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-lg md:text-xl text-zinc-300 leading-relaxed mb-8">
-            Discover exclusive adult content in our private Telegram community.
-            Take a look below, then join us for the content you won't find on this page.
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+            Pick a room below — private Telegram channel, the WhatsApp group, or the leaked video vaults.
+            Every card opens in a new tab.
           </p>
-          <JoinButton />
-          <p className="mt-4 mb-12 text-xs text-zinc-500">Opens in Telegram · For adults aged 18 and over</p>
-          <Preview src="https://imagex1.sx.cdn.live/images/pinporn/2022/03/19/26898223.gif?width=460" number={1} />
         </div>
       </section>
 
-      <section className="bg-zinc-900/60 border-y border-white/10 px-6 py-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-red-400 text-xs uppercase tracking-widest font-bold mb-4">Inside the community</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Your next favorite destination.</h2>
-            <p className="text-zinc-400 max-w-xl mx-auto">A dedicated space for exclusive content, shared directly through Telegram.</p>
+      {/* VIP content grid — 1 column on mobile, 2 columns on desktop */}
+      <section className="px-6 pb-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-8 flex items-baseline justify-between gap-4">
+            <h2 className="text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">VIP content</h2>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+              {vipCards.length} rooms
+            </span>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {[
-              { title: 'Exclusive content', text: 'Go beyond the public previews with content shared inside the VIP channel.' },
-              { title: 'One place to explore', text: 'Find the channel’s posts in one dedicated Telegram destination.' },
-              { title: 'Stay connected', text: 'Enable Telegram notifications to keep up when new content is shared.' },
-            ].map(({ title, text }) => (
-              <div key={title} className="bg-black/50 p-8 rounded-2xl border border-white/10">
-                <h3 className="text-lg font-bold mb-3">{title}</h3>
-                <p className="text-zinc-400 leading-relaxed text-sm">{text}</p>
-              </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {vipCards.map((card) => (
+              <VipContentCard key={card.id} card={card} />
             ))}
           </div>
-          <Preview src="https://imagex1.sx.cdn.live/images/pinporn/2022/01/30/26640740.gif?width=460" number={2} />
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <div className="text-center mb-10">
-          <p className="text-red-400 text-xs uppercase tracking-widest font-bold mb-4">A glimpse inside</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">The preview is just the beginning.</h2>
-          <p className="text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            Like what you see? Head to Telegram to explore the VIP community and find out how to become a member.
-          </p>
-        </div>
-        <Preview src="https://porngif.co/wp-content/uploads/2023/08/149168-big-donk-cakey-likes-to-shake-that-enormous-soft-rump-no-ass-shots-all-natural.gif" number={3} />
-        <div className="mt-10 text-center"><JoinButton /></div>
-      </section>
-
-      <section className="bg-zinc-900/60 border-y border-white/10 px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Your VIP experience starts here.</h2>
-          <ol className="grid md:grid-cols-3 gap-8 mb-12">
-            {[
-              ['Open Telegram', 'Tap the join button to open our Telegram invitation.'],
-              ['Check the details', 'Review the membership information. Contact the admin if you have questions about access or payment.'],
-              ['Explore the channel', 'Once admitted, browse the exclusive content and turn on notifications for future posts.'],
-            ].map(([title, text], i) => (
-              <li key={title}>
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-red-600 font-bold mb-4">{i + 1}</span>
-                <h3 className="font-bold text-lg mb-2">{title}</h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">{text}</p>
+      {/* How it works */}
+      <section className="border-y border-white/10 bg-white/[0.02] px-6 py-16">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-10 text-center text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
+            How it works
+          </h2>
+          <ol className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {steps.map(([title, text], i) => (
+              <li key={title} className="rounded-2xl border border-white/10 bg-[#1a1a1a] p-6">
+                <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#ff3b5c] text-sm font-bold">
+                  {i + 1}
+                </span>
+                <h3 className="mb-2 text-lg font-bold text-white">{title}</h3>
+                <p className="text-sm leading-relaxed text-zinc-400">{text}</p>
               </li>
             ))}
           </ol>
-          <Preview src="https://myteenwebcam.com/fapp/gifs/8618e56516c85f4d39bcb967244a07b7.gif" number={4} />
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto text-center px-6 py-20">
-        <p className="text-red-400 text-xs uppercase tracking-widest font-bold mb-4">Make it exclusive</p>
-        <h2 className="text-4xl md:text-5xl font-black mb-6">Ready to join us?</h2>
-        <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-          Your next step is simple. Open the Telegram invitation and get the details on VIP access.
-        </p>
-        <JoinButton />
-        <div className="mt-4">
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-5 px-8 rounded-xl text-sm uppercase tracking-widest transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-          >
-            WhatsApp for VIP
-          </a>
+      {/* Closing call to action */}
+      <section className="px-6 py-20 text-center">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="text-3xl font-black uppercase tracking-tight sm:text-4xl">Ready to dive in?</h2>
+          <p className="mt-4 text-lg leading-relaxed text-zinc-400">
+            Start with the Telegram channel, then work your way through the rest of the directory.
+          </p>
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row">
+            <a
+              href={telegramLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#ff3b5c] px-8 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#ff5c78] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff3b5c]"
+            >
+              <PlayIcon />
+              Join Telegram
+            </a>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-[#1a1a1a] px-8 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors hover:border-white/40 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              WhatsApp Group
+            </a>
+          </div>
+          <p className="mt-6 text-sm text-zinc-500">
+            Questions about access?{' '}
+            <a
+              href={adminShortLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white underline underline-offset-4 hover:text-[#ff3b5c]"
+            >
+              Contact the admin
+            </a>
+          </p>
         </div>
-        <p className="mt-6 text-sm text-zinc-400">
-          Questions about membership?{' '}
-          <a href={adminShortLink} target="_blank" rel="noopener noreferrer" onClick={handleContactAdmin} className="text-white underline underline-offset-4 hover:text-red-400">Contact the admin</a>
-        </p>
       </section>
     </main>
 
     <footer className="border-t border-white/10 px-6 py-8 text-center">
-      <p className="max-w-2xl mx-auto text-xs text-zinc-500 leading-relaxed">
-        Adults only (18+). This page contains adult previews. Review membership details and any payment terms with the admin before joining. Respect the privacy of creators and members; do not redistribute private content.
+      <p className="mx-auto max-w-2xl text-xs leading-relaxed text-zinc-500">
+        Adults only (18+). This page contains adult previews. Review membership details and any payment terms with the
+        admin before joining. Respect the privacy of creators and members; do not redistribute private content.
       </p>
     </footer>
   </div>
