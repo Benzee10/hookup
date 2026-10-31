@@ -6,7 +6,8 @@ import { VIP_SEO } from '../seo';
  * Links
  * ------------------------------------------------------------------ */
 
-const telegramLink = 'https://t.me/beaifuloul';
+// The Telegram card's button now reads "Watch Now" and points at ClipVault.
+const watchNowLink = 'https://clipvault-video.pages.dev';
 const whatsappLink = 'https://vip-redirect.vercel.app';
 const videosLink = 'https://html-starter-6nu.pages.dev/';
 const adminShortLink = 'https://lovelydates.short.gy/rdgHt1';
@@ -84,10 +85,10 @@ const vipCards: VipCard[] = [
   {
     id: 'telegram',
     title: 'Telegram',
-    blurb: 'Join the private channel for daily drops and direct access to the community.',
-    href: telegramLink,
+    blurb: 'Hit Watch Now to jump straight into the ClipVault collection — fresh drops, no detours.',
+    href: watchNowLink,
     image: 'https://imagex1.sx.cdn.live/images/pinporn/2022/03/19/26898223.gif?width=460',
-    action: 'Join',
+    action: 'Watch Now',
     badge: 'VIP',
   },
   {
@@ -115,6 +116,15 @@ const vipCards: VipCard[] = [
     blurb: 'Stream the student collection anytime, straight from the vault.',
     href: videosLink,
     image: 'https://myteenwebcam.com/fapp/gifs/8618e56516c85f4d39bcb967244a07b7.gif',
+    action: 'Watch',
+    badge: 'VIP',
+  },
+  {
+    id: 'spicy-ebony',
+    title: 'Spicy Ebony Clips',
+    blurb: 'Turn up the heat — hand-picked spicy clips, refreshed with new gems all the time.',
+    href: watchNowLink,
+    image: 'https://cdn.nsfwgify.com/5323/enjoying-hot-and-spicy-ebony-bitch-scaled.webp',
     action: 'Watch',
     badge: 'VIP',
   },
@@ -201,17 +211,17 @@ const VipPageContent: React.FC = () => (
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl font-black uppercase tracking-tight sm:text-4xl">Ready to dive in?</h2>
           <p className="mt-4 text-lg leading-relaxed text-zinc-400">
-            Start with the Telegram channel, then work your way through the rest of the directory.
+            Start with Watch Now, then work your way through the rest of the directory.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row">
             <a
-              href={telegramLink}
+              href={watchNowLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#ff3b5c] px-8 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#ff5c78] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff3b5c]"
             >
               <PlayIcon />
-              Join Telegram
+              Watch Now
             </a>
             <a
               href={whatsappLink}
