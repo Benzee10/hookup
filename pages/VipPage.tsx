@@ -123,7 +123,7 @@ const vipCards: VipCard[] = [
     id: 'spicy-ebony',
     title: 'Spicy Ebony Clips',
     blurb: 'Turn up the heat — hand-picked spicy clips, refreshed with new gems all the time.',
-    href: watchNowLink,
+    href: videosLink,
     image: 'https://cdn.nsfwgify.com/5323/enjoying-hot-and-spicy-ebony-bitch-scaled.webp',
     action: 'Watch',
     badge: 'VIP',
