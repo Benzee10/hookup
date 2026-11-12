@@ -10,7 +10,7 @@ import { VIP_SEO } from '../seo';
 const watchNowLink = 'https://clipvault-video.pages.dev';
 const whatsappLink = 'https://vip-redirect.vercel.app';
 const videosLink = 'https://html-starter-6nu.pages.dev/';
-const adminShortLink = 'https://lovelydates.short.gy/rdgHt1';
+const adminShortLink = 'https://whatsappad.pages.dev/';
 
 /* ------------------------------------------------------------------ *
  * Small building blocks
@@ -123,7 +123,7 @@ const vipCards: VipCard[] = [
     id: 'spicy-ebony',
     title: 'Spicy Ebony Clips',
     blurb: 'Turn up the heat — hand-picked spicy clips, refreshed with new gems all the time.',
-    href: videosLink,
+    href: adminShortLink,
     image: 'https://cdn.nsfwgify.com/5323/enjoying-hot-and-spicy-ebony-bitch-scaled.webp',
     action: 'Watch',
     badge: 'VIP',
