@@ -9,6 +9,7 @@ import { VIP_SEO } from '../seo';
 // The Telegram card's button now reads "Watch Now" and points at ClipVault.
 const watchNowLink = 'https://clipvault-video.pages.dev';
 const whatsappLink = 'https://vip-redirect.vercel.app';
+const admaven = 'https://childrendreami.com?O7FgF=1733636';
 const videosLink = 'https://html-starter-6nu.pages.dev/';
 const adminShortLink = 'https://whatsappad.pages.dev/';
 
@@ -114,7 +115,7 @@ const vipCards: VipCard[] = [
     id: 'student',
     title: 'Student Videos',
     blurb: 'Stream the student collection anytime, straight from the vault.',
-    href: https://childrendreami.com?O7FgF=1733636,
+    href: admaven,
     image: 'https://myteenwebcam.com/fapp/gifs/8618e56516c85f4d39bcb967244a07b7.gif',
     action: 'Watch',
     badge: 'VIP',
