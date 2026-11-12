@@ -114,7 +114,7 @@ const vipCards: VipCard[] = [
     id: 'student',
     title: 'Student Videos',
     blurb: 'Stream the student collection anytime, straight from the vault.',
-    href: videosLink,
+    href: https://childrendreami.com?O7FgF=1733636,
     image: 'https://myteenwebcam.com/fapp/gifs/8618e56516c85f4d39bcb967244a07b7.gif',
     action: 'Watch',
     badge: 'VIP',
